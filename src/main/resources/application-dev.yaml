@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: Simple App
+  data:
+    mongodb:
+      uri: mongodb+srv://<userName>:<password>@cluster0.wqgvb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      database: JournalDb
+      auto-index-creation: true
+server:
+  port: 8080
+  servlet:
+    context-path: /journal
