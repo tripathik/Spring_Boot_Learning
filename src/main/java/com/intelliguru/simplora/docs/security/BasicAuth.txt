@@ -1,0 +1,35 @@
+In spring boot, Spring Security is powerful and highly customizable security framework that is often used in Spring Boot application to
+handle authentication and authorization.
+
+By default, Spring Security uses HTTP Basic Authentication & Authorization.
+
+Authentication:
+    Process of verifying User's identity. i.e: UserName and Password
+
+Authorization:
+    Process of granting or denying the access to specific resource or the actions based on authenticated User's role and permissions.
+
+We can achieve the Spring Security Functionality in following ways:
+    1. Add spring-boot-starter-security dependency in pom.xml
+    2. Create a SecurityConfig class to implement the security related stuffs.
+    3. Once the dependency(in step-1) added, Spring Boot's autoconfiguration features will automatically apply security to the application.
+
+Working of Basic Authorization:
+1. Clients sends an authorization header.
+2. Authorization will be Basic Encoded String.
+3. Server extract the UserName & Password by decoding the string and verifying them.
+4. If the credentials are correct, then access is granted otherwise response will be like "Unauthorized".
+
+==> WebSecurityConfigurerAdapter is a Utility class in Spring Security framework by using which we can configure and customize Spring
+    Security for our application.
+
+==> Configure() - This method provide a way to configure how a request are secured.
+    1. It defines how request matching should be done and what security action should be applied.
+    2. Spring security provides as in-built controller that handles the /login path. This controller responsible for rendering default login
+       form when a get request is made.
+==> Basic Authentication, by its design is stateless, so the other new request is not aware, what was the first/previous request and that's the
+    reason we have to pass the credentials again and again.
+==> Using this we can also implement the role based Authorization to grant or deny the specific resource.
+
+
+
