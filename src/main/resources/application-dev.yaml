@@ -1,0 +1,23 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+      tokenEndpoint: ${TOKEN_ENDPOINT}
+      redirectUri: ${REDIRECT_URI}
+      userInfoBaseUrl: ${USER_INFO_BASE_URL}
+
+  application:
+    name: Simple App
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+      database: JournalDb
+      auto-index-creation: true
+server:
+  port: 8080
+  servlet:
+    context-path: /journal

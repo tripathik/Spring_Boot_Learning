@@ -38,17 +38,18 @@ public class JournalEntryService {
     public Optional<JournalEntry> getEntriesById(ObjectId id) {
         return journalEntryRepository.findById(id);
     }
-    public void deleteEntryById(ObjectId id, String userName){
+    public boolean deleteEntryById(ObjectId id, String userName){
+        boolean removed = false;
         try {
             User user = userService.findByUserName(userName);
-            user.getJournalEntries().removeIf(x -> x.getId().equals(id));
-            userService.saveUser(user);
-            journalEntryRepository.deleteById(id);
+            removed = user.getJournalEntries().removeIf(x -> x.getId().equals(id));
+            if (removed) {
+                userService.saveUser(user);
+                journalEntryRepository.deleteById(id);
+            }
+            return removed;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Exception occurred while deleting the journal entries: {}",e);
         }
-    }
-    public void deleteAllEntries(){
-        journalEntryRepository.deleteAll();
     }
 }

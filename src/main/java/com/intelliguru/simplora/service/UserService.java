@@ -8,8 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,15 +17,13 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void saveNewUser(User users) {
-        users.setPassword(passwordencoder.encode(users.getPassword()));
-        users.setRoles(List.of("USER"));
-        userRepository.save(users);
+    public void saveNewUser(User user) {
+        user.setPassword(passwordencoder.encode(user.getPassword()));
+        user.setRoles(List.of("USER"));
+        userRepository.save(user);
     }
-    public void saveUser(User users) {
-        users.setPassword(passwordencoder.encode(users.getPassword()));
-        users.setRoles(List.of("USER"));
-        userRepository.save(users);
+    public void saveUser(User user) {
+        userRepository.save(user);
     }
 
     public List<User> getAllUsers() {
@@ -43,5 +39,11 @@ public class UserService {
     }
     public User findByUserName(String userName){
         return userRepository.findByUserName(userName);
+    }
+
+    public void saveAdmin(User user) {
+        user.setPassword(passwordencoder.encode(user.getPassword()));
+        user.setRoles(List.of("USER", "ADMIN"));
+        userRepository.save(user);
     }
 }
