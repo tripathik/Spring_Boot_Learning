@@ -1,7 +1,6 @@
 package com.intelliguru.simplora.entity;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -12,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "users")
 public class User {
     @Id
@@ -19,6 +21,7 @@ public class User {
     @Indexed(unique = true)
     @NonNull
     private String userName;
+    private String email;
     @NonNull
     private String password;
     @DBRef

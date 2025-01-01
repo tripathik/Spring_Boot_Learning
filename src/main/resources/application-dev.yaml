@@ -1,9 +1,20 @@
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+      tokenEndpoint: ${TOKEN_ENDPOINT}
+      redirectUri: ${REDIRECT_URI}
+      userInfoBaseUrl: ${USER_INFO_BASE_URL}
+
   application:
     name: Simple App
   data:
     mongodb:
-      uri: mongodb+srv://<userName>:<password>@cluster0.wqgvb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      uri: ${MONGODB_URI}
       database: JournalDb
       auto-index-creation: true
 server:
