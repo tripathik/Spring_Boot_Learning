@@ -16,12 +16,22 @@ public class AppCache {
     @Autowired
     private ConfigRepository configRepository;
 
-    public  final Map<String, String> APP_CACHE = new HashMap<>();
+    private Map<String, String> cacheDataMap;
     @PostConstruct
-    public void init(){
+    public boolean init(){
+        boolean isReset = false;
+        cacheDataMap = new HashMap<>();
         List<ConfigEntity> all = configRepository.findAll();
         for (ConfigEntity configEntity : all){
-            APP_CACHE.put(configEntity.getKey(), configEntity.getValue());
+            cacheDataMap.put(configEntity.getKey(), configEntity.getValue());
         }
+
+        if(!cacheDataMap.isEmpty()){
+            isReset = true;
+        }
+        return isReset;
+    }
+    public String getApiValue(String key){
+        return cacheDataMap.get(key);
     }
 }

@@ -1,7 +1,9 @@
 package com.intelliguru.simplora.controller;
 
+import com.intelliguru.simplora.cache.AppCache;
 import com.intelliguru.simplora.entity.User;
 import com.intelliguru.simplora.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,10 +14,23 @@ import java.util.List;
 
 @RequestMapping("/admin")
 @RestController
+@Slf4j
 public class AdminController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private AppCache appCache;
+
+    @GetMapping("clear-cache")
+    public ResponseEntity<?> resetCache(){
+        boolean reset = appCache.init();
+        if(reset){
+            return new ResponseEntity<>("The cache Value has been successfully invalidated.", HttpStatus.OK);
+        }
+        log.error("Some error occurred while invalidating the cache.");
+        throw new RuntimeException("Some error occurred while invalidating the cache.");
+    }
 
     @GetMapping("/all-users")
     public ResponseEntity<?> getAllUsers(){
